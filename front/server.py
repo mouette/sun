@@ -47,6 +47,6 @@ async def  getpos(position: str, response: Response):
     result = r.json()
     return result
 
-app.mount("/", StaticFiles(directory="../front", html=True), name="static")
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 uvicorn.run(app, port=8000)
