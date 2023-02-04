@@ -5,21 +5,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/pico.css">
-    <script src="https://d3js.org/d3.v4.js"></script>
-
+    <link rel="stylesheet" href="/css/main.css">
+<!--     <script src="https://d3js.org/d3.v4.js"></script>
+ -->    
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://unpkg.com/htmx.org@1.8.5"></script>
 </head>
 
 <body>
     <main class="container">
-        <form action="/proxy" method="get" hx-boost="true" hx-push-url="false" hx-target="#params-target" hx-params="*">
+        <form action="/proxy" method="get" hx-boost="true" hx-push-url="false" hx-target="#viz" hx-params="*" hx-swap="none">
             <label for="position">Position
                 <input type="text" name="position" value="45.8296058,4.8805884">
             </label>
+            <label for="aspect">Azimuth
+                <input type="text" name="aspect" value="0">
             <input type="submit">
         </form>
         <div id="viz"></div>
-        <div style="visibility: hidden;display: none;" id="params-target" hx-trigger="new-measure from:body"></div>
     </main>
     <script src="/js/main.js"></script>
 </body>

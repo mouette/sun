@@ -1,6 +1,9 @@
 htmx.logAll();
-htmx.on("htmx:afterSettle", function (evt) {
-    draw();
+htmx.on("htmx:afterRequest", function (evt) {
+    if (evt.detail.target.id == "viz") {
+        let data = JSON.parse(evt.detail.xhr.responseText);
+        draw(data);
+    }
 });
 // set the dimensions and margins of the graph
 let viz = document.getElementById("viz");
@@ -21,8 +24,8 @@ var svg = d3.select("#viz")
         "translate(" + margin.left + "," + margin.top + ")");
 
 // get the data
-function draw() {
-    let data = JSON.parse(document.getElementById("params-target").innerHTML);
+function draw(data) {
+    //let data = JSON.parse(document.getElementById("params-target").innerHTML);
 
     var x = d3.scaleBand()
         .range([0, width])
@@ -53,9 +56,9 @@ function draw() {
         .merge(u)
         .transition()
         .duration(100)
-            .attr("x", function (d) { return x(d.month); })
-            .attr("y", function (d) { return y(d.e); })
-            .attr("width", x.bandwidth())
-            .attr("height", function (d) { console.log(d); return height - y(d.e); })
-            .attr("fill", "#69b3a2")
+        .attr("x", function (d) { return x(d.month); })
+        .attr("y", function (d) { return y(d.e); })
+        .attr("width", x.bandwidth())
+        .attr("height", function (d) { console.log(d); return height - y(d.e); })
+        .attr("fill", "#69b3a2")
 }

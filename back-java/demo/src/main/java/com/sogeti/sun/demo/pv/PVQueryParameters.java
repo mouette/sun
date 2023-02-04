@@ -23,6 +23,8 @@ public class PVQueryParameters {
         parameters.put("raddatabase", "PVGIS-SARAH");
         parameters.put("select_database_grid", "PVGIS-SARAH");
         parameters.put("usehorizon", "1");
+        parameters.put("angle", "50");
+        parameters.put("aspect", "25");
     }
     
     public Map<String, String> getParameters() {

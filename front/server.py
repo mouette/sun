@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, Response, Request
 from fastapi.staticfiles import StaticFiles
 import uvicorn
 
@@ -42,8 +42,8 @@ async def  getpos(position: str, response: Response):
     return e
 
 @app.get("/proxy")
-async def  getpos(position: str, response: Response):
-    r = requests.get("http://localhost:8080/api/measures", params={"position":position})
+async def  getpos(position: str, response: Response, request: Request):
+    r = requests.get("http://localhost:8080/api/measures", params=request.query_params)
     result = r.json()
     return result
 

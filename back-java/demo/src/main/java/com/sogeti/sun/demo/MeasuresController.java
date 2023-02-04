@@ -1,11 +1,6 @@
 package com.sogeti.sun.demo;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,13 +20,29 @@ public class MeasuresController {
 
     String base = "https://re.jrc.ec.europa.eu/api/v5_2/PVcalc";
 
+    /**
+     * @param allParams
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "", method = RequestMethod.GET)
     @SuppressWarnings("unchecked")
-    public List<Map<String, Object>> getMeasuresJson(@RequestParam String position) throws IOException {
+    public List<Map<String, Object>> getMeasuresJson(@RequestParam Map<String, String> allParams) throws IOException {
         PVQueryParameters pvQueryParameters = new PVQueryParameters();
-        String[] plist = position.split(",");
-        pvQueryParameters.setParameter("lat", plist[0]);
-        pvQueryParameters.setParameter("lon", plist[1]);
+        for(String key : allParams.keySet()) {
+            if ("position".equals(key)) {
+                String[] plist = allParams.get(key).split(",");
+                pvQueryParameters.setParameter("lat", plist[0]);
+                pvQueryParameters.setParameter("lon", plist[1]);
+            }
+            else {
+                pvQueryParameters.setParameter(key, allParams.get(key));
+            }
+        }
+        String position = allParams.get("position");
+        if (position != null) {
+
+        }
         RestTemplate restTemplate = new RestTemplate();
         String url = base + "?" + pvQueryParameters.getQueryString();
         Map<String, Object> resp = (Map<String, Object>) restTemplate.getForObject(url, Map.class);
