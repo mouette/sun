@@ -1,0 +1,10 @@
+{
+    "folders": [
+		{
+			"path": "back-java/demo"
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "interactive"
+	}
+}
