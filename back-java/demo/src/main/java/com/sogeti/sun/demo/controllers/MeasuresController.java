@@ -1,4 +1,4 @@
-package com.sogeti.sun.demo;
+package com.sogeti.sun.demo.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.sogeti.sun.demo.pv.PVQueryParameters;
+import com.sogeti.sun.demo.business.pv.PVQueryParameters;
 
 @RestController
 @RequestMapping(value = "/api/measures")
@@ -20,11 +20,6 @@ public class MeasuresController {
 
     String base = "https://re.jrc.ec.europa.eu/api/v5_2/PVcalc";
 
-    /**
-     * @param allParams
-     * @return
-     * @throws IOException
-     */
     @RequestMapping(value = "", method = RequestMethod.GET)
     @SuppressWarnings("unchecked")
     public List<Map<String, Object>> getMeasuresJson(@RequestParam Map<String, String> allParams) throws IOException {
@@ -39,10 +34,7 @@ public class MeasuresController {
                 pvQueryParameters.setParameter(key, allParams.get(key));
             }
         }
-        String position = allParams.get("position");
-        if (position != null) {
 
-        }
         RestTemplate restTemplate = new RestTemplate();
         String url = base + "?" + pvQueryParameters.getQueryString();
         Map<String, Object> resp = (Map<String, Object>) restTemplate.getForObject(url, Map.class);

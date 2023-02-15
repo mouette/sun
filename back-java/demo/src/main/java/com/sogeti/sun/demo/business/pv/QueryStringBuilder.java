@@ -1,4 +1,4 @@
-package com.sogeti.sun.demo.pv;
+package com.sogeti.sun.demo.business.pv;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
