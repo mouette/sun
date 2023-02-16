@@ -9,7 +9,7 @@ public class Parameters {
 
     public static List<Double> getProduction(Float latitude, Float longitude, Float puissance) {
         var result = new ArrayList<Double>();
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 5; i++) {
             result.add(Double.valueOf(i * 10.0));
         }
         return result;

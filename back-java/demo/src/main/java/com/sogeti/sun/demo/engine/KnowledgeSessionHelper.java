@@ -41,15 +41,15 @@ public class KnowledgeSessionHelper {
         KieSession session = getStatefullKnowledgeSession(kieContainer);
         session.addEventListener(new RuleRuntimeEventListener() {
             public void objectInserted(ObjectInsertedEvent event) {
-                System.out.println("Object inserted \n"
+                System.out.println("Object inserted \n > "
                         + event.getObject().toString());
             }
             public void objectUpdated(ObjectUpdatedEvent event) {
-                System.out.println("Object was updated \n"
+                System.out.println("Object was updated \n > "
                         + "new Content \n" + event.getObject().toString());
             }
             public void objectDeleted(ObjectDeletedEvent event) {
-                System.out.println("Object retracted \n"
+                System.out.println("Object retracted \n > "
                         + event.getOldObject().toString());
             }
         });

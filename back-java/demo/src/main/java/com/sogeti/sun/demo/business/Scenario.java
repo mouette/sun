@@ -2,9 +2,11 @@ package com.sogeti.sun.demo.business;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
  
 @Getter
 @Setter
+@ToString(includeFieldNames = false)
 public class Scenario {
     
     private ConsoMode mode;
@@ -29,4 +31,6 @@ public class Scenario {
         this.mode = mode;
         this.installationMode = installationMode;
     }
+
+
 }

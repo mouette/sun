@@ -26,9 +26,9 @@ public class Transformer {
 	public List<Object> transform(Scenario s) {
 		var results = new ArrayList<Object>();
 		try {
-			KieSession session = KnowledgeSessionHelper.getStatefullKnowledgeSession(kieContainer);
-			session.addEventListener(new DebugAgendaEventListener());
-			session.addEventListener( new DebugRuleRuntimeEventListener());
+			KieSession session = KnowledgeSessionHelper.getStatefulKnowledgeSessionWithCallback(kieContainer);
+			// session.addEventListener(new DebugAgendaEventListener());
+			// session.addEventListener( new DebugRuleRuntimeEventListener());
 			session.setGlobal("parametres", new Parameters());
 			session.insert(s);
 			session.fireAllRules();

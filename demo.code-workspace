@@ -1,10 +1,17 @@
 {
-    "folders": [
+	"folders": [
 		{
-			"path": "back-java/demo"
+			"path": "."
+		},
+		{
+			"path": "../../../Users/pmaris/OneDrive - Capgemini/Projets/SNCF/fc12k/Poc3"
+		},
+		{
+			"path": "../../../Users/pmaris/OneDrive - Capgemini/Projets/SNCF/fc12k/SimplePoC"
 		}
 	],
 	"settings": {
-		"java.configuration.updateBuildConfiguration": "interactive"
+		"java.configuration.updateBuildConfiguration": "interactive",
+		"maven.view": "hierarchical"
 	}
 }
