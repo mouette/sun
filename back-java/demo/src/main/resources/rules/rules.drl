@@ -11,7 +11,7 @@ rule "Scenario Ombriere"
 		
 	then
 		modify($scenario) {
-			setTilt(38);
+			setTilt(40);
 		}
 	end
 
@@ -25,45 +25,3 @@ rule "Pas de latitude"
 		}
 	end
 
-rule "Init production"
-	when
-		$scenario : Scenario( latitude != 0 && longitude != 0)
-		not Month()
-	then
-		List<Double> prods = parametres.getProduction($scenario.getLatitude(), $scenario.getLongitude(), $scenario.getPuissance());
-		int i = 0;
-		for(Double prod: prods) {
-			i++;
-			insert(new Month(i, prod));
-		}
-	end
-
-rule "Init Conso 0"
-	when
-		$month: Month( name == 1 && consommation == null)
-	then
-		modify($month) {
-			setConsommation(10d);
-		}
-	end
-
-
-rule "Calc Conso"
-	when
-		$month: Month(consommation == null)
-		$prevMonth: Month( name == $month.getName() - 1, consommation != null)
-	then
-		modify($month) {
-			setConsommation($prevMonth.getConsommation() * 1.01);
-		}
-	end
-
-
-rule "Calc Net"
-	when
-		$month: Month(net == null && consommation != null && production != null)
-	then
-		modify($month) {
-			setNet($month.getProduction() - $month.getConsommation());
-		}
-	end

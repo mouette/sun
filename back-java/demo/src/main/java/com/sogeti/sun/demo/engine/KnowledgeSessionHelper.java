@@ -46,7 +46,7 @@ public class KnowledgeSessionHelper {
             }
             public void objectUpdated(ObjectUpdatedEvent event) {
                 System.out.println("Object was updated \n > "
-                        + "new Content \n" + event.getObject().toString());
+                     + event.getObject().toString());
             }
             public void objectDeleted(ObjectDeletedEvent event) {
                 System.out.println("Object retracted \n > "
@@ -67,7 +67,8 @@ public class KnowledgeSessionHelper {
             public void beforeMatchFired(BeforeMatchFiredEvent event) {
                 System.out.println("The rule "
                         + event.getMatch().getRule().getName()
-                        + " will be fired");
+                        + " will be fired on \n > "
+                        + event.getMatch().getObjects().toString());
             }
             public void afterMatchFired(AfterMatchFiredEvent event) {
                 System.out.println("The rule "

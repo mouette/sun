@@ -8,22 +8,9 @@
             "type": "java",
             "name": "Launch DemoApplication",
             "request": "launch",
-            "mainClass": "src.main.java.com.sogeti.sun.demo.DemoApplication",
-            "projectName": "demo"
-        },
-        {
-            "type": "java",
-            "name": "Launch ScenarioTest",
-            "request": "launch",
-            "mainClass": "com.sogeti.sun.demo.ScenarioTest",
-            "projectName": "demo"
-        },
-        {
-            "type": "java",
-            "name": "Launch DemoApplication",
-            "request": "launch",
             "mainClass": "com.sogeti.sun.demo.DemoApplication",
-            "projectName": "demo"
+            "projectName": "demo",
+            "env": {"M2_HOME":"~/.m2"}
         },
         {
             "name": "Python: Current File",
