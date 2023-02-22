@@ -2,15 +2,13 @@ package com.sogeti.sun.demo.engine;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-import org.drools.core.event.DebugAgendaEventListener;
-import org.drools.core.event.DebugRuleRuntimeEventListener;
-import org.kie.api.KieServices;
-import org.kie.api.logger.KieRuntimeLogger;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.StatelessKieSession;
 import org.kie.api.runtime.rule.FactHandle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,16 +18,19 @@ import com.sogeti.sun.demo.business.Scenario;
 @Service
 public class Transformer {
 
+	Logger logger = LoggerFactory.getLogger(getClass().getName());
+
 	@Autowired
 	private KieContainer kieContainer;
 
 	public List<Object> transform(Scenario s) {
+		String correlationId = "toto";
+		logger.info(correlationId);
 		var results = new ArrayList<Object>();
 		try {
 			KieSession session = KnowledgeSessionHelper.getStatefulKnowledgeSessionWithCallback(kieContainer);
-			// session.addEventListener(new DebugAgendaEventListener());
-			// session.addEventListener( new DebugRuleRuntimeEventListener());
 			session.setGlobal("parametres", new Parameters());
+			session.getEnvironment().set("correlationId", correlationId);
 			session.insert(s);
 			session.fireAllRules();
 			var facts = session.getFactHandles();

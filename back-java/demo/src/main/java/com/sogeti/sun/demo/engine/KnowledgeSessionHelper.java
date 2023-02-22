@@ -17,8 +17,13 @@ import org.kie.api.event.rule.RuleRuntimeEventListener;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.StatelessKieSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class KnowledgeSessionHelper {
+
+    static Logger logger = LoggerFactory.getLogger(KnowledgeSessionHelper.class);
+    
 	public static KieContainer createRuleBase() {
 		KieServices ks = KieServices.Factory.get();
 		KieContainer kieContainer = ks.getKieClasspathContainer();
@@ -41,37 +46,37 @@ public class KnowledgeSessionHelper {
         KieSession session = getStatefullKnowledgeSession(kieContainer);
         session.addEventListener(new RuleRuntimeEventListener() {
             public void objectInserted(ObjectInsertedEvent event) {
-                System.out.println("Object inserted \n > "
+                logger.info("Session " + session.getEnvironment().get("correlationId") + " - Object inserted \n > "
                         + event.getObject().toString());
             }
             public void objectUpdated(ObjectUpdatedEvent event) {
-                System.out.println("Object was updated \n > "
+                logger.info("Object was updated \n > "
                      + event.getObject().toString());
             }
             public void objectDeleted(ObjectDeletedEvent event) {
-                System.out.println("Object retracted \n > "
+                logger.info("Object retracted \n > "
                         + event.getOldObject().toString());
             }
         });
         session.addEventListener(new AgendaEventListener() {
             public void matchCreated(MatchCreatedEvent event) {
-                System.out.println("The rule "
+                logger.info("The rule "
                         + event.getMatch().getRule().getName()
                         + " can be fired in agenda");
             }
             public void matchCancelled(MatchCancelledEvent event) {
-                System.out.println("The rule "
+                logger.info("The rule "
                         + event.getMatch().getRule().getName()
                         + " cannot b in agenda");
             }
             public void beforeMatchFired(BeforeMatchFiredEvent event) {
-                System.out.println("The rule "
+                logger.info("The rule "
                         + event.getMatch().getRule().getName()
                         + " will be fired on \n > "
                         + event.getMatch().getObjects().toString());
             }
             public void afterMatchFired(AfterMatchFiredEvent event) {
-                System.out.println("The rule "
+                logger.info("The rule "
                         + event.getMatch().getRule().getName()
                         + " has be fired");
             }
@@ -103,7 +108,7 @@ public class KnowledgeSessionHelper {
 
               @Override
               public void beforeProcessStarted(ProcessStartedEvent arg0) {
-                  System.out.println("Process Name "+arg0.getProcessInstance().getProcessName()+" has been started");
+                  logger.info("Process Name "+arg0.getProcessInstance().getProcessName()+" has been started");
 
 
               }
@@ -123,7 +128,7 @@ public class KnowledgeSessionHelper {
               @Override
               public void beforeNodeLeft(ProcessNodeLeftEvent arg0) {
                  if (arg0.getNodeInstance() instanceof RuleSetNodeInstance){
-                      System.out.println("Node Name "+ arg0.getNodeInstance().getNodeName()+" has been left");        
+                      logger.info("Node Name "+ arg0.getNodeInstance().getNodeName()+" has been left");        
                   }
 
               }
@@ -141,7 +146,7 @@ public class KnowledgeSessionHelper {
 
               @Override
               public void afterProcessCompleted(ProcessCompletedEvent arg0) {
-                  System.out.println("Process Name "+arg0.getProcessInstance().getProcessName()+" has stopped");
+                  logger.info("Process Name "+arg0.getProcessInstance().getProcessName()+" has stopped");
 
 
               }
@@ -149,7 +154,7 @@ public class KnowledgeSessionHelper {
               @Override
               public void afterNodeTriggered(ProcessNodeTriggeredEvent arg0) {
                   if (arg0.getNodeInstance() instanceof RuleSetNodeInstance){
-                      System.out.println("Node Name "+ arg0.getNodeInstance().getNodeName()+" has been entered");        
+                      logger.info("Node Name "+ arg0.getNodeInstance().getNodeName()+" has been entered");        
                   }
               }
 
