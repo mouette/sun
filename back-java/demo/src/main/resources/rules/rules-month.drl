@@ -6,6 +6,7 @@ import java.util.List;
 global Parameters parametres;
 
 rule "Init production"
+	ruleflow-group "Final"
 	when
 		$scenario : Scenario( latitude != 0 && longitude != 0)
 		not Month()
@@ -19,6 +20,7 @@ rule "Init production"
 	end
 
 rule "Init Conso 0"
+	ruleflow-group "Final"
 	when
 		$month: Month( name == 1 && consommation == null)
 	then
@@ -29,6 +31,7 @@ rule "Init Conso 0"
 
 
 rule "Calc Conso"
+	ruleflow-group "Final"
 	when
 		$month: Month(consommation == null)
 		$prevMonth: Month( name == $month.getName() - 1, consommation != null)
@@ -40,6 +43,7 @@ rule "Calc Conso"
 
 
 rule "Calc Net"
+	ruleflow-group "Final"
 	when
 		$month: Month(net == null && consommation != null && production != null)
 	then

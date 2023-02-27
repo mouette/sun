@@ -5,7 +5,8 @@ import java.util.List;
 
 global Parameters parametres;
 
-rule "Scenario Ombriere"
+rule "Scenario Tilt Ombriere"
+	ruleflow-group "Tilt"
 	when 
 		$scenario : Scenario( installationMode == InstallationMode.OMBRIERE && tilt == 0)
 		
@@ -16,11 +17,12 @@ rule "Scenario Ombriere"
 	end
 
 rule "Pas de latitude"
+	ruleflow-group "Initial"
 	when 
-		$scenario : Scenario( latitude == 0)
+		$scenario : Scenario( latitude < 45)
 	then
 		modify($scenario) {
-			setLatitude(45),
+			setLatitude($scenario.getLatitude() + 5),
 			setLongitude(5)
 		}
 	end

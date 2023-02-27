@@ -16,7 +16,7 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
-		<drools.version>7.63.0.Final</drools.version>
+		<drools.version>7.73.0.Final</drools.version>
 		<junit-version>4.13.1</junit-version>
 	</properties>
 
@@ -24,6 +24,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
             <groupId>org.projectlombok</groupId>
@@ -54,7 +60,11 @@
 			<artifactId>drools-decisiontables</artifactId>
 			<version>${drools.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-test</artifactId>
+			<version>${drools.version}</version>
+		  </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

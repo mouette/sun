@@ -32,6 +32,7 @@ public class Transformer {
 			session.setGlobal("parametres", new Parameters());
 			session.getEnvironment().set("correlationId", correlationId);
 			session.insert(s);
+			session.startProcess("com.sogeti.sun.demo.business.processus");
 			session.fireAllRules();
 			var facts = session.getFactHandles();
 			for (FactHandle fact : facts) {

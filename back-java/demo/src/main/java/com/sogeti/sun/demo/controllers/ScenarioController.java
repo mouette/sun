@@ -1,7 +1,9 @@
 package com.sogeti.sun.demo.controllers;
 
 import java.util.List;
+import java.util.UUID;
 
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +30,7 @@ public class ScenarioController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public List<Object> getResult(@RequestBody Scenario s) {   
+    public List<Object> getResult(@RequestBody Scenario s) {
         return transformer.transform(s);
     }
 }
